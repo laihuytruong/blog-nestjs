@@ -1,8 +1,10 @@
+import { Post } from 'src/posts/post.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
@@ -28,9 +30,15 @@ export class User {
   @Column({ nullable: true, default: null })
   refreshToken: string;
 
+  @Column({ nullable: true, default: null })
+  avatar: string;
+
   @CreateDateColumn()
   createdAt: Date;
 
   @CreateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => Post, (post) => post.user)
+  posts: Post[];
 }
